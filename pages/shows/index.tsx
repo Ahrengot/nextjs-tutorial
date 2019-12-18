@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageLayout from "../../components/PageLayout";
 import fetch from "isomorphic-unfetch";
 import { Show } from "../../types/show";
+import { NextSeo } from "next-seo";
 
 const ShowItem = ({ show }: Show) => (
   <article>
@@ -48,7 +49,8 @@ const ShowSearchPage = () => {
 
   return (
     <PageLayout>
-      <h1>Search for movies</h1>
+      <NextSeo title="TV Shows" description="Search for TV Shows" />
+      <h1 className="display-4 mb-4">Search for movies</h1>
       <form onSubmit={search} className="mb-4">
         <fieldset disabled={isLoading}>
           <input

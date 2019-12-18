@@ -3,6 +3,7 @@ import PageLayout from "../../components/PageLayout";
 import fetch from "isomorphic-unfetch";
 
 import { ShowData } from "../../types/show";
+import { NextSeo } from "next-seo";
 
 type Props = {
   show? : ShowData;
@@ -23,9 +24,7 @@ const SingleShowPage = ({show, showId}:Props) => {
 
   return (
     <PageLayout>
-      <head>
-        <title>Tester</title>
-      </head>
+      <NextSeo title={`${show.name} | TV Shows`} />
       <h1 className="display-4 mb-4">{show.name}</h1>
       <div className="row">
         <div className="col-6 col-lg-4">

@@ -4,6 +4,7 @@ import PageLayout from "../../components/PageLayout";
 import fetch from "isomorphic-unfetch";
 import { Show } from "../../types/show";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 const ShowItem = ({ show }: Show) => (
   <article>
@@ -15,56 +16,37 @@ const ShowItem = ({ show }: Show) => (
   </article>
 );
 
-const ShowSearchPage = () => {
-  const [didSearch, setDidSearch] = useState(false);
-  const [results, setResults] = useState<Show[]>([]);
-  const [isLoading, setLoading] = useState(false);
-  const [query, setQuery] = useState("");
+type Props = {
+  results: Show[],
+  initialQuery: string,
+}
+
+const ShowSearchPage = ({results, initialQuery}:Props) => {
+  const [query, setQuery] = useState(initialQuery);
+
+  const router = useRouter();
 
   const search = async (e:React.FormEvent) => {
     e.preventDefault();
-
-    if (isLoading || !query) {
-      return;
-    }
-    
-    setResults([]);
-    setLoading(true);
-    setDidSearch(false);
-    
-    const res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    
-
-    setLoading(false);
-    setResults(data);
-    setDidSearch(true);
+    router.push(`/shows?q=${encodeURIComponent(query)}`);
   }
-
-  useEffect(() => {
-    if (didSearch) {
-      setDidSearch(false);
-    }
-  }, [query]);
 
   return (
     <PageLayout>
       <NextSeo title="TV Shows" description="Search for TV Shows" />
       <h1 className="display-4 mb-4">Search for movies</h1>
-      <form onSubmit={search} className="mb-4">
-        <fieldset disabled={isLoading}>
-          <input
-            type="search"
-            className="form-control rounded-pill"
-            value={query}
-            placeholder="Enter search phrase..."
-            onChange={e => setQuery(e.target.value)}
-            autoFocus
-            required
-          />
-        </fieldset>
+      <form onSubmit={search} className="mb-5">
+        <input
+          type="search"
+          className="form-control rounded-pill"
+          value={query}
+          placeholder="Enter search phrase..."
+          onChange={e => setQuery(e.target.value)}
+          autoFocus
+          required
+        />
       </form>
-      {results.length === 0 && didSearch && <p className="mt-3 text-danger">No results :(</p>}
+      {results.length === 0 && initialQuery && <p className="mt-3 text-danger">No results :(</p>}
       {results && (
         <div className="card-grid">
           {results.map(movie => (
@@ -103,6 +85,23 @@ const ShowSearchPage = () => {
       `}</style>
     </PageLayout>
   );
+}
+
+ShowSearchPage.getInitialProps = async ({query}):Promise<Props> => {
+  if (!query.q) {
+    return {
+      results: [],
+      initialQuery: ""
+    }
+  }
+
+  const res = await fetch(`https://api.tvmaze.com/search/shows?q=${query.q}`);
+  const data = await res.json();
+
+  return {
+    results: data,
+    initialQuery: decodeURIComponent(query.q)
+  };
 }
 
 export default ShowSearchPage;

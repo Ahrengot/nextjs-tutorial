@@ -24,17 +24,26 @@ type Props = {
 const ShowSearchPage = ({results, initialQuery}:Props) => {
   const [query, setQuery] = useState(initialQuery);
 
+  useEffect(() => {
+    setQuery(initialQuery);
+  }, [initialQuery]);
+
   const router = useRouter();
 
   const search = async (e:React.FormEvent) => {
     e.preventDefault();
-    router.push(`/shows?q=${encodeURIComponent(query)}`);
+    router.push({
+      pathname: "/shows",
+      query: {
+        q: encodeURIComponent(query)
+      }
+    });
   }
 
   return (
     <PageLayout>
       <NextSeo title="TV Shows" description="Search for TV Shows" />
-      <h1 className="display-4 mb-4">Search for movies</h1>
+      <h1 className="display-4 mb-4">TV Show Search</h1>
       <form onSubmit={search} className="mb-5">
         <input
           type="search"
@@ -47,42 +56,39 @@ const ShowSearchPage = ({results, initialQuery}:Props) => {
         />
       </form>
       {results.length === 0 && initialQuery && <p className="mt-3 text-danger">No results :(</p>}
+      {!initialQuery && (
+        <div className="my-3">
+          <h5 className="h6 d-inline mr-2">Example queries:</h5>
+          <ul className="d-inline list-inline">
+            <li className="list-inline-item">
+              <Link href="/shows?q=The%20Ranch">
+                <a>The Ranch</a>
+              </Link>
+            </li>
+            <li className="list-inline-item">
+              <Link href="/shows?q=Batman">
+                <a>Batman</a>
+              </Link>
+            </li>
+            <li className="list-inline-item">
+              <Link href="/shows?q=Always%20Sunny">
+                <a>Always Sunny</a>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
       {results && (
         <div className="card-grid">
           {results.map(movie => (
             <Link href="/shows/[id]" as={`/shows/${movie.show.id}`}>
-              <a className="card text-reset text-decoration-none">
+              <a className="card">
                 <ShowItem {...movie} />
               </a>
             </Link>
           ))}
         </div>
       )}
-      <style jsx>{`
-        .card-grid {
-          display: grid;
-          grid-template-columns: repeat(1, 1fr);
-          gap: 0.85rem;
-        }
-
-        @media (min-width: 550px) {
-          .card-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (min-width: 720px) {
-          .card-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-
-        @media (min-width: 1150px) {
-          .card-grid {
-            grid-template-columns: repeat(4, 1fr);
-          }
-        }
-      `}</style>
     </PageLayout>
   );
 }

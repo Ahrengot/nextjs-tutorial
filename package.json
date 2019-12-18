@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "browserslist": [
+    "> 4%",
+    "not dead"
+  ],
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -19,6 +23,10 @@
   "devDependencies": {
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
+    "@zeit/next-css": "^1.0.1",
+    "cssnano": "^4.1.10",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
     "typescript": "^3.7.3"
   }
 }

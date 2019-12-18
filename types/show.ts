@@ -12,7 +12,7 @@ export type ShowData = {
       original?: string,
     },
     summary: string,
-    network: {
+    network?: {
       country: {
         name: string,
         code: string,

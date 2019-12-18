@@ -2,15 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 
-const headerStyle = {
-  marginTop: "2vmin",
-  marginBottom: "6vmin"
-}
-
-const linkStyle = {
-  marginRight: 15
-}
-
 type Route = {
   url: string,
   name: string,
@@ -30,7 +21,7 @@ const Header = () => {
   }
 
   return (
-    <header style={headerStyle}>
+    <header role="banner">
       <nav className="navbar navbar-expand navbar-light bg-light">
         <ul className="navbar-nav mr-auto">
           {routes.map(r => (

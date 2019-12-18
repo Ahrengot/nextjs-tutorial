@@ -20,8 +20,6 @@ const SingleShowPage = ({show, showId}:Props) => {
     )
   }
 
-  console.log("Show", show);
-
   return (
     <PageLayout>
       <NextSeo title={`${show.name} | TV Shows`} />
@@ -41,8 +39,12 @@ const SingleShowPage = ({show, showId}:Props) => {
             <dl>
               <dt>Date</dt>
               <dd>{show.premiered}</dd>
-              <dt>Country</dt>
-              <dd>{show.network.country.name}</dd>
+              {show.network && (
+                <>
+                  <dt>Country</dt>
+                  <dd>{show.network.country.name}</dd>
+                </>
+              )}
               <dt>Summary</dt>
               <dd dangerouslySetInnerHTML={{ __html: show.summary }} />
             </dl>
@@ -52,9 +54,6 @@ const SingleShowPage = ({show, showId}:Props) => {
               }
             `}</style>
           </section>
-          <Link href="/shows">
-            <a>&larr; back to search</a>
-          </Link>
         </div>
       </div>
     </PageLayout>

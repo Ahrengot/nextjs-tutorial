@@ -54,12 +54,12 @@ const SingleShowPage = ({show, showId}:Props) => {
       />
       <h1 className="display-4 mb-4">{show.name}</h1>
       <section className="row">
-        <div className="col-6 col-lg-4">
+        <div className="col-12 mb-4 mb-md-0 col-md-6 col-lg-4">
           {show.image && show.image.original && (
             <img src={show.image.original} alt={show.name} className="img-fluid shadow" />
           )}
         </div>
-        <div className="col-6 col-lg-8">
+        <div className="col-12 col-md-6 col-lg-8">
           <section className="mb-3 bg-light rounded py-3 px-4">
             <dl>
               <dt>Date</dt>

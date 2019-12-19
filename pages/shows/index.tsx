@@ -105,7 +105,7 @@ ShowSearchPage.getInitialProps = async ({query}):Promise<Props> => {
     }
   }
 
-  const res = await fetch(`https://api.tvmaze.com/search/shows?q=${query.q}`);
+  const res = await fetch(`//api.tvmaze.com/search/shows?q=${query.q}`);
   const data = await res.json();
 
   return {

@@ -19,7 +19,7 @@ const SingleShowPage = ({show, showId}:Props) => {
     if (show) {
       setCast([]);
 
-      fetch(`http://api.tvmaze.com/shows/${show.id}/cast`)
+      fetch(`//api.tvmaze.com/shows/${show.id}/cast`)
         .then(res => res.json())
         .then(setCast);
     }
@@ -104,7 +104,7 @@ const SingleShowPage = ({show, showId}:Props) => {
 };
 
 SingleShowPage.getInitialProps = async ({query}):Promise<Props> => {
-  const res = await fetch(`https://api.tvmaze.com/shows/${query.id}`);
+  const res = await fetch(`//api.tvmaze.com/shows/${query.id}`);
   const data = await res.json();
 
   return {

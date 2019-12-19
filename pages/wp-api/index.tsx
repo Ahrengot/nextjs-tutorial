@@ -35,7 +35,7 @@ const WordPressAPIIndex = ({ posts }: Props) => {
 };
 
 WordPressAPIIndex.getInitialProps = async ({ query }): Promise<Props> => {
-  const res = await fetch(`https://kpg.rcdev.ahrengot.com/wp-json/wp/v2/kpg-article`);
+  const res = await fetch(`//kpg.rcdev.ahrengot.com/wp-json/wp/v2/kpg-article`);
   const data = await res.json();
 
   return {

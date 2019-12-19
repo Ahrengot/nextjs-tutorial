@@ -12,7 +12,7 @@ const WordPressLazyImage = (props:Props) => {
 
   useEffect(() => {
     setData(null);
-    fetch(`https://kpg.rcdev.ahrengot.com/wp-json/wp/v2/media/${props.id}`)
+    fetch(`//kpg.rcdev.ahrengot.com/wp-json/wp/v2/media/${props.id}`)
       .then(res => res.json())
       .then(setData);
   }, [props.id]);

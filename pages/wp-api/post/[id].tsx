@@ -32,7 +32,7 @@ const SingleWordPressPost = ({ post, postId }: Props) => {
 };
 
 SingleWordPressPost.getInitialProps = async ({ query }): Promise<Props> => {
-  const res = await fetch(`https://kpg.rcdev.ahrengot.com/wp-json/wp/v2/kpg-article/${query.id}`);
+  const res = await fetch(`//kpg.rcdev.ahrengot.com/wp-json/wp/v2/kpg-article/${query.id}`);
   const data = await res.json();
 
   return {

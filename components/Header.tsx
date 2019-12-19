@@ -11,6 +11,7 @@ const routes:Route[] = [
   { url: "/", name: "Home" },
   { url: "/about", name: "About" },
   { url: "/shows", name: "TV Shows" },
+  { url: "/wp-api", name: "WP API" },
 ]
 
 const Header = () => {

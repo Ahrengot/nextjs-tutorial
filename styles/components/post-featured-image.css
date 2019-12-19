@@ -1,0 +1,6 @@
+.post-featured-image {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+}

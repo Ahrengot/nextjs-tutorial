@@ -81,7 +81,7 @@ const ShowSearchPage = ({results, initialQuery}:Props) => {
       {results && (
         <div className="card-grid">
           {results.map(movie => (
-            <Link href="/shows/[id]" as={`/shows/${movie.show.id}`}>
+            <Link href="/shows/[id]" as={`/shows/${movie.show.id}`} key={movie.show.id}>
               <a className="card">
                 <ShowItem {...movie} />
               </a>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PageLayout from "../../components/PageLayout";
 import fetch from "isomorphic-unfetch";
+import striptags from "striptags";
 
 import { ShowData, CastMember } from "../../types/show";
 import { NextSeo } from "next-seo";
@@ -33,9 +34,24 @@ const SingleShowPage = ({show, showId}:Props) => {
     )
   }
 
+  const rawSummary = striptags(show.summary);
+
   return (
     <PageLayout>
-      <NextSeo title={`${show.name} | TV Shows`} />
+      <NextSeo
+        title={`${show.name} | TV Shows`}
+        description={rawSummary}
+        openGraph={{
+          type: "article",
+          title: `${show.name} | TV Shows`,
+          description: rawSummary,
+          images: [
+            {
+              url: show.image.original,
+            }
+          ]
+        }}
+      />
       <h1 className="display-4 mb-4">{show.name}</h1>
       <section className="row">
         <div className="col-6 col-lg-4">

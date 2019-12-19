@@ -42,7 +42,11 @@ const ShowSearchPage = ({results, initialQuery}:Props) => {
 
   return (
     <PageLayout>
-      <NextSeo title="TV Shows" description="Search for TV Shows" />
+      {initialQuery ? (
+        <NextSeo title={`${initialQuery} | Search > TV Shows`} description={`TV Show results for: ${initialQuery}`} />
+      ) : (
+        <NextSeo title="TV Shows" description="Search for TV Shows" />
+      )}
       <h1 className="display-4 mb-4">TV Show Search</h1>
       <form onSubmit={search} className="mb-5">
         <input
